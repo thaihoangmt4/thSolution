@@ -8,5 +8,6 @@ namespace thSolution.Entities
         public string Name { get; set; }
         public bool IsDefault { get; set; }
         public List<CategoryTranslaction> CategoryTranslactions { get; set; }
+        public List<ProductTranslation> ProductTranslations { get; set; }
     }
 }

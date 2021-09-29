@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using thSolution.Enums;
 
 namespace thSolution.Entities.Mapping
 {
@@ -54,7 +55,8 @@ namespace thSolution.Entities.Mapping
                 .HasColumnType("character varying(255)")
                 .HasMaxLength(255);
 
-            builder.Property(t => t.Status);
+            builder.Property(t => t.Status)
+                .HasDefaultValue(PromotionStatus.New);
 
             builder.Property(t => t.CreatedDate)
                 .IsRequired()

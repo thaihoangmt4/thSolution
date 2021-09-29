@@ -4,6 +4,9 @@
     {
         Open,
         InProgress,
-        Done
+        Confirmed,
+        Shipping,
+        Success,
+        Canceled
     }
 }

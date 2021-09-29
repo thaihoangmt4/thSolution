@@ -2,5 +2,8 @@
 {
     public enum PromotionStatus
     {
+        New,
+        InProgress,
+        Done
     }
 }

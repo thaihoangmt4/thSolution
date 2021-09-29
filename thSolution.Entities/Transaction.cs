@@ -3,7 +3,7 @@ using thSolution.Enums;
 
 namespace thSolution.Entities
 {
-    public class Tracsaction : CommonEntity
+    public class Transaction : CommonEntity
     {
         public int Id { get; set; }
         public DateTime TracsactionDate { get; set; }
@@ -14,5 +14,7 @@ namespace thSolution.Entities
         public string Message { get; set; }
         public TracsactionStatus Status { get; set; }
         public string Provider { get; set; }
+        public Guid UserId { get; set; }
+        public Users Users { get; set; }
     }
 }

@@ -2,5 +2,7 @@
 {
     public enum TracsactionStatus
     {
+        Success,
+        Failed
     }
 }

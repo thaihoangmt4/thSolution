@@ -16,5 +16,6 @@ namespace thSolution.Entities
         public OrderStatus Status { get; set; }
         public Contact Contact { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }
+        public Users Users { get; set; }
     }
 }

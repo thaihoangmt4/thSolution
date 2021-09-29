@@ -60,6 +60,11 @@ namespace thSolution.Entities.Mapping
                 .WithOne(t => t.Order)
                 .HasForeignKey<Contact>(t => t.OrderId)
                 .HasConstraintName("FK_Order_Contact");
+
+            builder.HasOne(t => t.Users)
+                .WithMany(t => t.Orders)
+                .HasForeignKey(t => t.UserId)
+                .HasConstraintName("FK_Order_User");
         }
     }
 }

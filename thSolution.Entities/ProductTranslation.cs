@@ -1,6 +1,6 @@
 ﻿namespace thSolution.Entities
 {
-    public class ProductTranslaction : CommonEntity
+    public class ProductTranslation : CommonEntity
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
@@ -11,5 +11,7 @@
         public string SeoTitle { get; set; }
         public string SeoAlias { get; set; }
         public int LanguageId { get; set; }
+        public Language Language { get; set; }
+        public Product Product { get; set; }
     }
 }
