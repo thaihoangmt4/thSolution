@@ -5,11 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using thSolution.Repository;
+using thSolution.API.Configuration;
 using thSolution.Repository.Context;
-using thSolution.Repository.Interface;
-using thSolution.Service;
-using thSolution.Service.Interface;
 
 namespace thSolution.API
 {
@@ -27,8 +24,9 @@ namespace thSolution.API
         {
             var connectionStr = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ThSolutionDbContext>(options => options.UseSqlServer(connectionStr));
-            services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<IProductService, ProductService>();
+
+            services.AddCoreServices(Configuration);
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
