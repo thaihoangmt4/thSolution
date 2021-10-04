@@ -1,14 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 
 namespace thSolution.Entities.Mapping
 {
-    public class ProductInCategoryMap : IEntityTypeConfiguration<ProductInCategory>
+    public partial class ProductInCategoryMap
+        : IEntityTypeConfiguration<thSolution.Entities.ProductInCategory>
     {
-        public void Configure(EntityTypeBuilder<ProductInCategory> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<thSolution.Entities.ProductInCategory> builder)
         {
+            #region Generated Configure
             // table
-            builder.ToTable("ProductInCategory");
+            builder.ToTable("ProductInCategory", "dbo");
 
             // key
             builder.HasKey(t => t.Id);
@@ -16,7 +17,19 @@ namespace thSolution.Entities.Mapping
             // properties
             builder.Property(t => t.Id)
                 .IsRequired()
+                .HasColumnName("Id")
+                .HasColumnType("int")
                 .ValueGeneratedOnAdd();
+
+            builder.Property(t => t.ProductId)
+                .IsRequired()
+                .HasColumnName("ProductId")
+                .HasColumnType("int");
+
+            builder.Property(t => t.CategoryId)
+                .IsRequired()
+                .HasColumnName("CategoryId")
+                .HasColumnType("int");
 
             builder.Property(t => t.CreatedDate)
                 .IsRequired()
@@ -24,30 +37,52 @@ namespace thSolution.Entities.Mapping
                 .HasColumnType("date");
 
             builder.Property(t => t.ModifiedDate)
+                .IsRequired()
                 .HasColumnName("ModifiedDate")
                 .HasColumnType("date");
 
             builder.Property(t => t.CreatedBy)
                 .IsRequired()
                 .HasColumnName("CreatedBy")
-                .HasColumnType("character varying(255)")
+                .HasColumnType("varchar(255)")
                 .HasMaxLength(255);
 
             builder.Property(t => t.ModifiedBy)
                 .HasColumnName("ModifiedBy")
-                .HasColumnType("character varying(255)")
+                .HasColumnType("varchar(255)")
                 .HasMaxLength(255);
 
-            // relationship
-            builder.HasOne(t => t.Product)
-                .WithMany(t => t.ProductInCategories)
-                .HasForeignKey(t => t.ProductId)
-                .HasConstraintName("FK_ProductInCategory_Product");
-
+            // relationships
             builder.HasOne(t => t.Category)
                 .WithMany(t => t.ProductInCategories)
-                .HasForeignKey(t => t.CategoryId)
+                .HasForeignKey(d => d.CategoryId)
                 .HasConstraintName("FK_ProductInCategory_Category");
+
+            builder.HasOne(t => t.Product)
+                .WithMany(t => t.ProductInCategories)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("FK_ProductInCategory_Product");
+
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "dbo";
+            public const string Name = "ProductInCategory";
+        }
+
+        public struct Columns
+        {
+            public const string Id = "Id";
+            public const string ProductId = "ProductId";
+            public const string CategoryId = "CategoryId";
+            public const string CreatedDate = "CreatedDate";
+            public const string ModifiedDate = "ModifiedDate";
+            public const string CreatedBy = "CreatedBy";
+            public const string ModifiedBy = "ModifiedBy";
+        }
+        #endregion
     }
 }

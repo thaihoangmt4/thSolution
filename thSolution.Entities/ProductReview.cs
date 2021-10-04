@@ -2,9 +2,9 @@ using System;
 
 namespace thSolution.Entities
 {
-    public partial class ProductImage
+    public partial class ProductReview
     {
-        public ProductImage()
+        public ProductReview()
         {
             #region Generated Constructor
             #endregion
@@ -15,15 +15,13 @@ namespace thSolution.Entities
 
         public int ProductId { get; set; }
 
-        public string ImagePath { get; set; }
+        public int? ParentId { get; set; }
 
-        public string Caption { get; set; }
+        public string Title { get; set; }
 
-        public bool IsDefault { get; set; }
+        public int Rating { get; set; }
 
-        public int SortOrder { get; set; }
-
-        public long FileSize { get; set; }
+        public string Content { get; set; }
 
         public DateTime CreatedDate { get; set; }
 

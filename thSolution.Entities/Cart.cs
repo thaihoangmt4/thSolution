@@ -1,16 +1,41 @@
-﻿using System;
+using System;
 
 namespace thSolution.Entities
 {
-    public class Cart : CommonEntity
+    public partial class Cart
     {
-        public int Id { set; get; }
-        public int ProductId { set; get; }
-        public int Quantity { set; get; }
-        public decimal Price { set; get; }
+        public Cart()
+        {
+            #region Generated Constructor
+            #endregion
+        }
+
+        #region Generated Properties
+        public int Id { get; set; }
+
+        public int ProductId { get; set; }
+
+        public int Quantity { get; set; }
+
+        public decimal Price { get; set; }
+
         public Guid UserId { get; set; }
-        public Product Product { get; set; }
-        public DateTime DateCreated { get; set; }
-        public Users Users { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public DateTime ModifiedDate { get; set; }
+
+        public string CreatedBy { get; set; }
+
+        public string ModifiedBy { get; set; }
+
+        #endregion
+
+        #region Generated Relationships
+        public virtual Product Product { get; set; }
+
+        public virtual Users UserUsers { get; set; }
+
+        #endregion
     }
 }

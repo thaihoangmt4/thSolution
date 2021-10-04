@@ -1,14 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 
 namespace thSolution.Entities.Mapping
 {
-    public class OrderDetailMap : IEntityTypeConfiguration<OrderDetail>
+    public partial class OrderDetailMap
+        : IEntityTypeConfiguration<thSolution.Entities.OrderDetail>
     {
-        public void Configure(EntityTypeBuilder<OrderDetail> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<thSolution.Entities.OrderDetail> builder)
         {
+            #region Generated Configure
             // table
-            builder.ToTable("OrderDetails");
+            builder.ToTable("OrderDetail", "dbo");
 
             // key
             builder.HasKey(t => t.Id);
@@ -16,7 +17,29 @@ namespace thSolution.Entities.Mapping
             // properties
             builder.Property(t => t.Id)
                 .IsRequired()
+                .HasColumnName("Id")
+                .HasColumnType("int")
                 .ValueGeneratedOnAdd();
+
+            builder.Property(t => t.OrderId)
+                .IsRequired()
+                .HasColumnName("OrderId")
+                .HasColumnType("int");
+
+            builder.Property(t => t.ProductId)
+                .IsRequired()
+                .HasColumnName("ProductId")
+                .HasColumnType("int");
+
+            builder.Property(t => t.Quality)
+                .IsRequired()
+                .HasColumnName("Quality")
+                .HasColumnType("decimal(18,2)");
+
+            builder.Property(t => t.Price)
+                .IsRequired()
+                .HasColumnName("Price")
+                .HasColumnType("int");
 
             builder.Property(t => t.CreatedDate)
                 .IsRequired()
@@ -24,18 +47,19 @@ namespace thSolution.Entities.Mapping
                 .HasColumnType("date");
 
             builder.Property(t => t.ModifiedDate)
+                .IsRequired()
                 .HasColumnName("ModifiedDate")
                 .HasColumnType("date");
 
             builder.Property(t => t.CreatedBy)
                 .IsRequired()
                 .HasColumnName("CreatedBy")
-                .HasColumnType("character varying(255)")
+                .HasColumnType("varchar(255)")
                 .HasMaxLength(255);
 
             builder.Property(t => t.ModifiedBy)
                 .HasColumnName("ModifiedBy")
-                .HasColumnType("character varying(255)")
+                .HasColumnType("varchar(255)")
                 .HasMaxLength(255);
 
             // relationships
@@ -48,6 +72,29 @@ namespace thSolution.Entities.Mapping
                 .WithMany(t => t.OrderDetails)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("FK_OrderDetail_Product");
+
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "dbo";
+            public const string Name = "OrderDetail";
+        }
+
+        public struct Columns
+        {
+            public const string Id = "Id";
+            public const string OrderId = "OrderId";
+            public const string ProductId = "ProductId";
+            public const string Quality = "Quality";
+            public const string Price = "Price";
+            public const string CreatedDate = "CreatedDate";
+            public const string ModifiedDate = "ModifiedDate";
+            public const string CreatedBy = "CreatedBy";
+            public const string ModifiedBy = "ModifiedBy";
+        }
+        #endregion
     }
 }

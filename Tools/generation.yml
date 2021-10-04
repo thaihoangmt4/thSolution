@@ -1,0 +1,38 @@
+project:
+  namespace: 'thSolution'
+  directory: ..\
+database:
+  connectionString: 'Server=192.168.1.150,1345;Database=thSolution;Uid=sa;Pwd=Its-global.vn;MultipleActiveResultSets=true'
+  provider: SqlServer
+  tableNaming: Singular
+  schemas:
+    - dbo
+  exclude:
+    - exact: public.DataProtectionKeys
+    #- exact: public.AspNetRoleClaims
+    #- exact: public.AspNetRoles
+    #- exact: public.AspNetUserClaims
+    #- exact: public.AspNetUserLogins
+    #- exact: public.AspNetUserRoles
+    #- exact: public.AspNetUserTokens
+    #-exact: public.AspNetUsers
+    #- regex: public.AspNet$
+data:
+  context:
+    name: 'ThSolutionDbContext'
+    baseClass: DbContext
+    propertyNaming: Plural
+    namespace: '{Project.Namespace}.Repository.Context'
+    directory: '{Project.Directory}\{Project.Namespace}.Repository\Context'
+    document: false
+  entity:
+    entityNaming: Singular
+    relationshipNaming: Plural
+    prefixWithSchemaName: false
+    namespace: '{Project.Namespace}.Entities'
+    directory: '{Project.Directory}\{Project.Namespace}.Entities'
+    document: false
+  mapping:
+    namespace: '{Project.Namespace}.Entities.Mapping'  
+    directory: '{Project.Directory}\{Project.Namespace}.Entities\Mapping'  
+    document: false

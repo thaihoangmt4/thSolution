@@ -2,14 +2,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace thSolution.Entities.Mapping
 {
-    public partial class CartMap
-        : IEntityTypeConfiguration<thSolution.Entities.Cart>
+    public partial class SystemActivitiesMap
+        : IEntityTypeConfiguration<thSolution.Entities.SystemActivities>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<thSolution.Entities.Cart> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<thSolution.Entities.SystemActivities> builder)
         {
             #region Generated Configure
             // table
-            builder.ToTable("Cart", "dbo");
+            builder.ToTable("SystemActivities", "dbo");
 
             // key
             builder.HasKey(t => t.Id);
@@ -21,25 +21,26 @@ namespace thSolution.Entities.Mapping
                 .HasColumnType("int")
                 .ValueGeneratedOnAdd();
 
-            builder.Property(t => t.ProductId)
-                .IsRequired()
-                .HasColumnName("ProductId")
-                .HasColumnType("int");
+            builder.Property(t => t.ActionName)
+                .HasColumnName("ActionName")
+                .HasColumnType("nvarchar(max)");
 
-            builder.Property(t => t.Quantity)
-                .IsRequired()
-                .HasColumnName("Quantity")
-                .HasColumnType("int");
+            builder.Property(t => t.ActionDate)
+                .HasColumnName("ActionDate")
+                .HasColumnType("nvarchar(max)");
 
-            builder.Property(t => t.Price)
-                .IsRequired()
-                .HasColumnName("Price")
-                .HasColumnType("decimal(18,2)");
+            builder.Property(t => t.FunctionId)
+                .HasColumnName("FunctionId")
+                .HasColumnType("nvarchar(max)");
 
             builder.Property(t => t.UserId)
                 .IsRequired()
                 .HasColumnName("UserId")
                 .HasColumnType("uniqueidentifier");
+
+            builder.Property(t => t.ClientIp)
+                .HasColumnName("ClientIp")
+                .HasColumnType("nvarchar(max)");
 
             builder.Property(t => t.CreatedDate)
                 .IsRequired()
@@ -60,16 +61,6 @@ namespace thSolution.Entities.Mapping
                 .HasColumnType("nvarchar(max)");
 
             // relationships
-            builder.HasOne(t => t.Product)
-                .WithMany(t => t.Carts)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK_Cart_Products_ProductId");
-
-            builder.HasOne(t => t.UserUsers)
-                .WithMany(t => t.UserCarts)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK_Cart_Users_UserId");
-
             #endregion
         }
 
@@ -77,16 +68,17 @@ namespace thSolution.Entities.Mapping
         public struct Table
         {
             public const string Schema = "dbo";
-            public const string Name = "Cart";
+            public const string Name = "SystemActivities";
         }
 
         public struct Columns
         {
             public const string Id = "Id";
-            public const string ProductId = "ProductId";
-            public const string Quantity = "Quantity";
-            public const string Price = "Price";
+            public const string ActionName = "ActionName";
+            public const string ActionDate = "ActionDate";
+            public const string FunctionId = "FunctionId";
             public const string UserId = "UserId";
+            public const string ClientIp = "ClientIp";
             public const string CreatedDate = "CreatedDate";
             public const string ModifiedDate = "ModifiedDate";
             public const string CreatedBy = "CreatedBy";

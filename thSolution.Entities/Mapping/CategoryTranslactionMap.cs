@@ -1,14 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 
 namespace thSolution.Entities.Mapping
 {
-    public class CategoryTranslactionMap : IEntityTypeConfiguration<CategoryTranslaction>
+    public partial class CategoryTranslactionMap
+        : IEntityTypeConfiguration<thSolution.Entities.CategoryTranslaction>
     {
-        public void Configure(EntityTypeBuilder<CategoryTranslaction> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<thSolution.Entities.CategoryTranslaction> builder)
         {
+            #region Generated Configure
             // table
-            builder.ToTable("CategoryTranslaction");
+            builder.ToTable("CategoryTranslaction", "dbo");
 
             // key
             builder.HasKey(t => t.Id);
@@ -16,24 +17,40 @@ namespace thSolution.Entities.Mapping
             // properties
             builder.Property(t => t.Id)
                 .IsRequired()
+                .HasColumnName("Id")
+                .HasColumnType("int")
                 .ValueGeneratedOnAdd();
+
+            builder.Property(t => t.CategoryId)
+                .IsRequired()
+                .HasColumnName("CategoryId")
+                .HasColumnType("int");
 
             builder.Property(t => t.Name)
                 .IsRequired()
-                .HasColumnType("character varying(255)")
-                .HasMaxLength(255);
-
-            builder.Property(t => t.SeoAlias)
-                .HasColumnType("character varying(255)")
+                .HasColumnName("Name")
+                .HasColumnType("varchar(255)")
                 .HasMaxLength(255);
 
             builder.Property(t => t.SeoDescription)
-                .HasColumnType("character varying(255)")
+                .HasColumnName("SeoDescription")
+                .HasColumnType("varchar(255)")
                 .HasMaxLength(255);
 
             builder.Property(t => t.SeoTitle)
-                .HasColumnType("character varying(255)")
+                .HasColumnName("SeoTitle")
+                .HasColumnType("varchar(255)")
                 .HasMaxLength(255);
+
+            builder.Property(t => t.SeoAlias)
+                .HasColumnName("SeoAlias")
+                .HasColumnType("varchar(255)")
+                .HasMaxLength(255);
+
+            builder.Property(t => t.LanguageId)
+                .IsRequired()
+                .HasColumnName("LanguageId")
+                .HasColumnType("int");
 
             builder.Property(t => t.CreatedDate)
                 .IsRequired()
@@ -41,21 +58,22 @@ namespace thSolution.Entities.Mapping
                 .HasColumnType("date");
 
             builder.Property(t => t.ModifiedDate)
+                .IsRequired()
                 .HasColumnName("ModifiedDate")
                 .HasColumnType("date");
 
             builder.Property(t => t.CreatedBy)
                 .IsRequired()
                 .HasColumnName("CreatedBy")
-                .HasColumnType("character varying(255)")
+                .HasColumnType("varchar(255)")
                 .HasMaxLength(255);
 
             builder.Property(t => t.ModifiedBy)
                 .HasColumnName("ModifiedBy")
-                .HasColumnType("character varying(255)")
+                .HasColumnType("varchar(255)")
                 .HasMaxLength(255);
 
-            // relationship
+            // relationships
             builder.HasOne(t => t.Category)
                 .WithMany(t => t.CategoryTranslactions)
                 .HasForeignKey(d => d.CategoryId)
@@ -65,6 +83,31 @@ namespace thSolution.Entities.Mapping
                 .WithMany(t => t.CategoryTranslactions)
                 .HasForeignKey(d => d.LanguageId)
                 .HasConstraintName("FK_CategoryTranslaction_Language");
+
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "dbo";
+            public const string Name = "CategoryTranslaction";
+        }
+
+        public struct Columns
+        {
+            public const string Id = "Id";
+            public const string CategoryId = "CategoryId";
+            public const string Name = "Name";
+            public const string SeoDescription = "SeoDescription";
+            public const string SeoTitle = "SeoTitle";
+            public const string SeoAlias = "SeoAlias";
+            public const string LanguageId = "LanguageId";
+            public const string CreatedDate = "CreatedDate";
+            public const string ModifiedDate = "ModifiedDate";
+            public const string CreatedBy = "CreatedBy";
+            public const string ModifiedBy = "ModifiedBy";
+        }
+        #endregion
     }
 }

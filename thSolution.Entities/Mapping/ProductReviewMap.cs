@@ -2,14 +2,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace thSolution.Entities.Mapping
 {
-    public partial class ProductMap
-        : IEntityTypeConfiguration<thSolution.Entities.Product>
+    public partial class ProductReviewMap
+        : IEntityTypeConfiguration<thSolution.Entities.ProductReview>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<thSolution.Entities.Product> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<thSolution.Entities.ProductReview> builder)
         {
             #region Generated Configure
             // table
-            builder.ToTable("Product", "dbo");
+            builder.ToTable("ProductReview", "dbo");
 
             // key
             builder.HasKey(t => t.Id);
@@ -21,25 +21,30 @@ namespace thSolution.Entities.Mapping
                 .HasColumnType("int")
                 .ValueGeneratedOnAdd();
 
-            builder.Property(t => t.Price)
+            builder.Property(t => t.ProductId)
                 .IsRequired()
-                .HasColumnName("Price")
-                .HasColumnType("decimal(18,2)");
-
-            builder.Property(t => t.OriginalPrice)
-                .IsRequired()
-                .HasColumnName("OriginalPrice")
-                .HasColumnType("decimal(18,2)");
-
-            builder.Property(t => t.Stock)
-                .IsRequired()
-                .HasColumnName("Stock")
+                .HasColumnName("ProductId")
                 .HasColumnType("int");
 
-            builder.Property(t => t.ViewCount)
-                .IsRequired()
-                .HasColumnName("ViewCount")
+            builder.Property(t => t.ParentId)
+                .HasColumnName("ParentId")
                 .HasColumnType("int");
+
+            builder.Property(t => t.Title)
+                .IsRequired()
+                .HasColumnName("Title")
+                .HasColumnType("varchar(100)")
+                .HasMaxLength(100);
+
+            builder.Property(t => t.Rating)
+                .IsRequired()
+                .HasColumnName("Rating")
+                .HasColumnType("int");
+
+            builder.Property(t => t.Content)
+                .IsRequired()
+                .HasColumnName("Content")
+                .HasColumnType("text");
 
             builder.Property(t => t.CreatedDate)
                 .IsRequired()
@@ -52,7 +57,6 @@ namespace thSolution.Entities.Mapping
                 .HasColumnType("date");
 
             builder.Property(t => t.CreatedBy)
-                .IsRequired()
                 .HasColumnName("CreatedBy")
                 .HasColumnType("varchar(255)")
                 .HasMaxLength(255);
@@ -63,28 +67,36 @@ namespace thSolution.Entities.Mapping
                 .HasMaxLength(255);
 
             // relationships
-            #endregion
+            builder.HasOne(t => t.Product)
+                .WithMany(t => t.ProductReviews)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("FK_ProductReview_Product");
+
+            #endregion Generated Configure
         }
 
         #region Generated Constants
+
         public struct Table
         {
             public const string Schema = "dbo";
-            public const string Name = "Product";
+            public const string Name = "ProductReview";
         }
 
         public struct Columns
         {
             public const string Id = "Id";
-            public const string Price = "Price";
-            public const string OriginalPrice = "OriginalPrice";
-            public const string Stock = "Stock";
-            public const string ViewCount = "ViewCount";
+            public const string ProductId = "ProductId";
+            public const string ParentId = "ParentId";
+            public const string Title = "Title";
+            public const string Rating = "Rating";
+            public const string Content = "Content";
             public const string CreatedDate = "CreatedDate";
             public const string ModifiedDate = "ModifiedDate";
             public const string CreatedBy = "CreatedBy";
             public const string ModifiedBy = "ModifiedBy";
         }
-        #endregion
+
+        #endregion Generated Constants
     }
 }

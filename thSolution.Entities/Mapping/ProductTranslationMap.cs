@@ -2,14 +2,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace thSolution.Entities.Mapping
 {
-    public partial class ProductImageMap
-        : IEntityTypeConfiguration<thSolution.Entities.ProductImage>
+    public partial class ProductTranslationMap
+        : IEntityTypeConfiguration<thSolution.Entities.ProductTranslation>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<thSolution.Entities.ProductImage> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<thSolution.Entities.ProductTranslation> builder)
         {
             #region Generated Configure
             // table
-            builder.ToTable("ProductImage", "dbo");
+            builder.ToTable("ProductTranslation", "dbo");
 
             // key
             builder.HasKey(t => t.Id);
@@ -26,31 +26,39 @@ namespace thSolution.Entities.Mapping
                 .HasColumnName("ProductId")
                 .HasColumnType("int");
 
-            builder.Property(t => t.ImagePath)
+            builder.Property(t => t.Name)
                 .IsRequired()
-                .HasColumnName("ImagePath")
+                .HasColumnName("Name")
                 .HasColumnType("nvarchar(200)")
                 .HasMaxLength(200);
 
-            builder.Property(t => t.Caption)
-                .HasColumnName("Caption")
+            builder.Property(t => t.Description)
+                .HasColumnName("Description")
+                .HasColumnType("nvarchar(max)");
+
+            builder.Property(t => t.Details)
+                .HasColumnName("Details")
+                .HasColumnType("nvarchar(500)")
+                .HasMaxLength(500);
+
+            builder.Property(t => t.SeoDescription)
+                .HasColumnName("SeoDescription")
+                .HasColumnType("nvarchar(max)");
+
+            builder.Property(t => t.SeoTitle)
+                .HasColumnName("SeoTitle")
+                .HasColumnType("nvarchar(max)");
+
+            builder.Property(t => t.SeoAlias)
+                .IsRequired()
+                .HasColumnName("SeoAlias")
                 .HasColumnType("nvarchar(200)")
                 .HasMaxLength(200);
 
-            builder.Property(t => t.IsDefault)
+            builder.Property(t => t.LanguageId)
                 .IsRequired()
-                .HasColumnName("IsDefault")
-                .HasColumnType("bit");
-
-            builder.Property(t => t.SortOrder)
-                .IsRequired()
-                .HasColumnName("SortOrder")
+                .HasColumnName("LanguageId")
                 .HasColumnType("int");
-
-            builder.Property(t => t.FileSize)
-                .IsRequired()
-                .HasColumnName("FileSize")
-                .HasColumnType("bigint");
 
             builder.Property(t => t.CreatedDate)
                 .IsRequired()
@@ -74,10 +82,15 @@ namespace thSolution.Entities.Mapping
                 .HasMaxLength(255);
 
             // relationships
+            builder.HasOne(t => t.Language)
+                .WithMany(t => t.ProductTranslations)
+                .HasForeignKey(d => d.LanguageId)
+                .HasConstraintName("FK_ProductTranslation_Language_LanguageId");
+
             builder.HasOne(t => t.Product)
-                .WithMany(t => t.ProductImages)
+                .WithMany(t => t.ProductTranslations)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK_ProductImage_Product");
+                .HasConstraintName("FK_ProductTranslation_Products_ProductId");
 
             #endregion
         }
@@ -86,18 +99,20 @@ namespace thSolution.Entities.Mapping
         public struct Table
         {
             public const string Schema = "dbo";
-            public const string Name = "ProductImage";
+            public const string Name = "ProductTranslation";
         }
 
         public struct Columns
         {
             public const string Id = "Id";
             public const string ProductId = "ProductId";
-            public const string ImagePath = "ImagePath";
-            public const string Caption = "Caption";
-            public const string IsDefault = "IsDefault";
-            public const string SortOrder = "SortOrder";
-            public const string FileSize = "FileSize";
+            public const string Name = "Name";
+            public const string Description = "Description";
+            public const string Details = "Details";
+            public const string SeoDescription = "SeoDescription";
+            public const string SeoTitle = "SeoTitle";
+            public const string SeoAlias = "SeoAlias";
+            public const string LanguageId = "LanguageId";
             public const string CreatedDate = "CreatedDate";
             public const string ModifiedDate = "ModifiedDate";
             public const string CreatedBy = "CreatedBy";

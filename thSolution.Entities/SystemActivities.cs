@@ -2,9 +2,9 @@ using System;
 
 namespace thSolution.Entities
 {
-    public partial class ProductImage
+    public partial class SystemActivities
     {
-        public ProductImage()
+        public SystemActivities()
         {
             #region Generated Constructor
             #endregion
@@ -13,17 +13,15 @@ namespace thSolution.Entities
         #region Generated Properties
         public int Id { get; set; }
 
-        public int ProductId { get; set; }
+        public string ActionName { get; set; }
 
-        public string ImagePath { get; set; }
+        public string ActionDate { get; set; }
 
-        public string Caption { get; set; }
+        public string FunctionId { get; set; }
 
-        public bool IsDefault { get; set; }
+        public Guid UserId { get; set; }
 
-        public int SortOrder { get; set; }
-
-        public long FileSize { get; set; }
+        public string ClientIp { get; set; }
 
         public DateTime CreatedDate { get; set; }
 
@@ -36,8 +34,6 @@ namespace thSolution.Entities
         #endregion
 
         #region Generated Relationships
-        public virtual Product Product { get; set; }
-
         #endregion
     }
 }

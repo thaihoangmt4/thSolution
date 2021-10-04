@@ -1,14 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 
 namespace thSolution.Entities.Mapping
 {
-    public class LanguageMap : IEntityTypeConfiguration<Language>
+    public partial class LanguageMap
+        : IEntityTypeConfiguration<thSolution.Entities.Language>
     {
-        public void Configure(EntityTypeBuilder<Language> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<thSolution.Entities.Language> builder)
         {
+            #region Generated Configure
             // table
-            builder.ToTable("Language");
+            builder.ToTable("Language", "dbo");
 
             // key
             builder.HasKey(t => t.Id);
@@ -16,14 +17,20 @@ namespace thSolution.Entities.Mapping
             // properties
             builder.Property(t => t.Id)
                 .IsRequired()
+                .HasColumnName("Id")
+                .HasColumnType("int")
                 .ValueGeneratedOnAdd();
 
             builder.Property(t => t.Name)
-                .HasColumnType("character varying(255)")
+                .HasColumnName("Name")
+                .HasColumnType("varchar(255)")
                 .HasMaxLength(255);
 
             builder.Property(t => t.IsDefault)
-                .HasDefaultValue(false);
+                .IsRequired()
+                .HasColumnName("IsDefault")
+                .HasColumnType("bit")
+                .HasDefaultValueSql("(CONVERT([bit],(0)))");
 
             builder.Property(t => t.CreatedDate)
                 .IsRequired()
@@ -31,19 +38,42 @@ namespace thSolution.Entities.Mapping
                 .HasColumnType("date");
 
             builder.Property(t => t.ModifiedDate)
+                .IsRequired()
                 .HasColumnName("ModifiedDate")
                 .HasColumnType("date");
 
             builder.Property(t => t.CreatedBy)
                 .IsRequired()
                 .HasColumnName("CreatedBy")
-                .HasColumnType("character varying(255)")
+                .HasColumnType("varchar(255)")
                 .HasMaxLength(255);
 
             builder.Property(t => t.ModifiedBy)
                 .HasColumnName("ModifiedBy")
-                .HasColumnType("character varying(255)")
+                .HasColumnType("varchar(255)")
                 .HasMaxLength(255);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "dbo";
+            public const string Name = "Language";
+        }
+
+        public struct Columns
+        {
+            public const string Id = "Id";
+            public const string Name = "Name";
+            public const string IsDefault = "IsDefault";
+            public const string CreatedDate = "CreatedDate";
+            public const string ModifiedDate = "ModifiedDate";
+            public const string CreatedBy = "CreatedBy";
+            public const string ModifiedBy = "ModifiedBy";
+        }
+        #endregion
     }
 }
