@@ -27,6 +27,8 @@ namespace thSolution.API
 
             services.AddCoreServices(Configuration);
 
+            services.AddIdentityServices();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -49,6 +51,8 @@ namespace thSolution.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

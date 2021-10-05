@@ -7,7 +7,7 @@ namespace thSolution.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductController : BaseController
     {
         private readonly IProductService _productService;
         private readonly ILogger<ProductController> _logger;
@@ -19,10 +19,11 @@ namespace thSolution.API.Controllers
         }
 
         [HttpGet]
+        [Route("GetList")]
         public async Task<IActionResult> GetList()
         {
             var products = await _productService.GetListByViewCountAsync(1);
-            return Ok(products);
+            return OkResult(products);
         }
     }
 }
